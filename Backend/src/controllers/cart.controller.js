@@ -42,8 +42,7 @@ const addToCart = asyncHandler(async (req, res) => {
    try {
       const userId = req.user._id;
       const productId = req.params.id;
-      console.log("Adding product", productId);
-      console.log("User", userId);
+      
       if (!userId) {
          throw new ApiError(404, "Unauthorized request for adding to cart");
       }
@@ -112,7 +111,6 @@ const removeFromCart = asyncHandler(async (req, res) => {
          .save({
             validateBeforeSave: false,
          })
-         .populate();
 
       res.status(201).json(
          new ApiResponse(200, newCart, "Product removed from cart successfully")
