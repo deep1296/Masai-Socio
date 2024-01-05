@@ -35,4 +35,56 @@ const addProduct = asyncHandler(async (req, res) => {
    );
 });
 
-export { addProduct };
+const getProducts = asyncHandler(async (req, res) => {
+   try {
+      const products = await Product.find();
+      res.status(200).json(
+         new ApiResponse(200, products, "Products fetched successfully")
+      );
+   } catch (error) {
+      throw new ApiError(
+         400,
+         "Something went wrong while fetching the products"
+      );
+   }
+});
+
+const getSingleProduct = asyncHandler(async (req, res) => {
+   const productId = req.params.id;
+   try {
+      const product = await Product.findById(productId);
+      if (!product) {
+         throw new ApiError(404, "Product not found");
+      }
+      res.status(200).json(
+         new ApiResponse(200, product, "Product fetched successfully")
+      );
+   } catch (error) {
+      throw new ApiError(
+         400,
+         "Something went wrong while fetching the product"
+      );
+   }
+});
+
+const updateProduct = asyncHandler(async (req, res) => {
+   const productId = req.params.id;
+   const data = req.body;
+   console.log(productId);
+   try {
+      const product = await Product.findByIdAndUpdate(productId, data, {
+         new: true,
+      });
+      res.status(200).json(
+         new ApiResponse(200, product, "Product updated successfully")
+      );
+   } catch (error) {
+      throw new ApiError(
+         400,
+         "Something went wrong while updating the product"
+      );
+   }
+});
+
+
+export { addProduct, getProducts, getSingleProduct, updateProduct };
