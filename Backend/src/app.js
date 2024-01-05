@@ -19,7 +19,11 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 import userRoute from "./routes/user.router.js";
+import categoryRoute from "./routes/category.router.js";
+import productRoute from "./routes/product.router.js";
 
 app.use("/api/v1/users", userRoute);
+app.use("/api/v1/categories", categoryRoute);
+app.use("/api/v1/products", productRoute);
 
 export default app;
