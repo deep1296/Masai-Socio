@@ -7,16 +7,6 @@ const categorySchema = new Schema(
          required: true,
          trim: true,
       },
-      description: {
-         type: String,
-         trim: true,
-      },
-      products: [
-         {
-            type: Schema.Types.ObjectId,
-            ref: "Product",
-         }, 
-      ],
    },
    { timestamps: true }
 );

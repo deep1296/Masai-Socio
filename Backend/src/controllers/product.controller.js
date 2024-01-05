@@ -5,7 +5,7 @@ import Product from "../models/product.model.js";
 import { uploadOnCloudinary } from "../utils/cloudanary.js";
 
 const addProduct = asyncHandler(async (req, res) => {
-   const { title, description, price, oldPrice, rating } = req.body;
+   const { title, description, price, oldPrice, rating, category } = req.body;
    if ([title, description].some((field) => field?.trim === "")) {
       throw new ApiError(400, "Product title and description is required");
    }
@@ -23,6 +23,7 @@ const addProduct = asyncHandler(async (req, res) => {
    }
    const product = await Product.create({
       title,
+      category,
       description,
       price,
       oldPrice,
@@ -37,7 +38,10 @@ const addProduct = asyncHandler(async (req, res) => {
 
 const getProducts = asyncHandler(async (req, res) => {
    try {
-      const products = await Product.find();
+      const products = await Product.find().populate({
+         path: "category",
+         model: "Category",
+      });
       res.status(200).json(
          new ApiResponse(200, products, "Products fetched successfully")
       );
@@ -85,6 +89,5 @@ const updateProduct = asyncHandler(async (req, res) => {
       );
    }
 });
-
 
 export { addProduct, getProducts, getSingleProduct, updateProduct };
