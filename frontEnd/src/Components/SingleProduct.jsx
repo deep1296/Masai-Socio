@@ -17,7 +17,10 @@ export function SingleProduct(props) {
       );
 
       axios
-         .post(`http://localhost:8080/api/v1/cart/add/${id}`, {})
+         .post(
+            `https://odd-elk-baseball-cap.cyclic.app/api/v1/cart/add/${id}`,
+            {}
+         )
          .then((response) => {
             alert("Added to cart successfully");
          })

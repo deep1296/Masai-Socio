@@ -10,7 +10,7 @@ export const Products = () => {
    const fetchProducts = () => {
       setLoading(true);
       axios
-         .get("http://localhost:8080/api/v1/products")
+         .get("https://odd-elk-baseball-cap.cyclic.app/api/v1/products")
          .then((res) => {
             setProducts(res.data.data);
             setLoading(false);

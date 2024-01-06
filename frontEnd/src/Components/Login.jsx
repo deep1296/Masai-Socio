@@ -31,7 +31,7 @@ export function Login({ setIsAuthenticated }) {
 
       try {
          const res = await axios.post(
-            "http://localhost:8080/api/v1/users/login",
+            "https://odd-elk-baseball-cap.cyclic.app/api/v1/users/login",
             formData
          );
 

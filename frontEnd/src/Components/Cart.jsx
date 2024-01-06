@@ -22,7 +22,7 @@ export function Cart() {
       );
 
       axios
-         .get(`http://localhost:8080/api/v1/cart`)
+         .get(`https://odd-elk-baseball-cap.cyclic.app/api/v1/cart`)
          .then((response) => {
             setProducts(response.data.data.items);
          })
@@ -49,7 +49,9 @@ export function Cart() {
       );
 
       axios
-         .post(`http://localhost:8080/api/v1/cart/remove/${id}`)
+         .post(
+            `https://odd-elk-baseball-cap.cyclic.app/api/v1/cart/remove/${id}`
+         )
          .then((response) => {
             setProducts(response.data.data.items);
          })
