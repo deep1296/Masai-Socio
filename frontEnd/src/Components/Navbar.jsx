@@ -4,12 +4,8 @@ import { Link } from "react-router-dom";
 
 const menuItems = [
    {
-      name: "Home",
-      href: "/",
-   },
-   {
       name: "Product",
-      href: "/product",
+      href: "/",
    },
    {
       name: "Cart",
@@ -106,7 +102,7 @@ export function Navbar() {
                               {menuItems.map((item) => (
                                  <Link
                                     key={item.name}
-                                    ro={item.href}
+                                    to={item.href}
                                     className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50"
                                  >
                                     <span className="ml-3 text-base font-medium text-gray-900">

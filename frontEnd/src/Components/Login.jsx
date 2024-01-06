@@ -2,22 +2,33 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-export function Login() {
-   //const navigate = useNavigate();
+export function Login({ setIsAuthenticated }) {
+   const navigate = useNavigate();
 
    const [formData, setFormData] = useState({
       email: "",
       password: "",
    });
-   const [accessToken, setAccessToken] = useState(null);
+   const storeToken = Cookies.get("accessToken");
+   const [accessToken, setAccessToken] = useState(storeToken || null);
 
    const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
    };
 
+   useEffect(() => {
+      if (accessToken) {
+         setIsAuthenticated(true);
+         navigate("/cart");
+      }
+   });
+
    const handleSubmit = async (e) => {
       e.preventDefault();
+
       try {
          const res = await axios.post(
             "http://localhost:8080/api/v1/users/login",
@@ -26,9 +37,14 @@ export function Login() {
 
          if (res.status === 200) {
             setAccessToken(res.data.data.accessToken);
+            setIsAuthenticated(true);
             alert("Login successful");
+            navigate("/cart");
+
+            Cookies.set("accessToken", res.data.data.accessToken, {
+               expires: 1,
+            });
          }
-         Cookies.set("accessToken", accessToken, { expires: 1 });
       } catch (error) {
          console.log("Error registering user", error.res);
          alert("Error logging user");

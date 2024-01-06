@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import axios from "axios";
 export function SignIn() {
@@ -8,7 +9,14 @@ export function SignIn() {
       password: "",
       name: "",
    });
+   const storeToken = Cookies.get("accessToken");
 
+   useEffect(() => {
+      if (storeToken) {
+         alert("You are already logged in");
+         navigate("/");
+      }
+   });
    const navigate = useNavigate();
 
    const handleSubmit = async (e) => {
